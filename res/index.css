@@ -1,0 +1,540 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --background-color: #eee;
+    --text-color: #333;
+    --cell-transition-effect: cubic-bezier(0.75, 0.0, 0.2, 1.0);
+    --cell-transition-time: 1s;
+    --standard-transition-effect: ease;
+    --standard-transition-time: .4s;
+    --shadow-low-color: rgba(0, 0, 0, .1);
+    --stroke-size: 0.025em;
+    --error-gradient: linear-gradient(to right, #654ea3, #eaafc8);
+}
+
+a{
+    color: inherit;
+    text-decoration: inherit;
+}
+
+svg{
+    vertical-align: middle;
+    fill: currentColor;
+    width: 1.2em;
+    height: 1.2em;
+    margin-top: -.2em;
+}
+
+::-webkit-scrollbar{
+    width: 0;
+    height: 0;
+}
+
+body{
+    -webkit-font-smoothing: antialiased;
+    font-family: "EB Garamond", Arial, sans serif;
+    cursor: default;
+    user-select: none;
+    background: var(--background-color);
+    color: var(--text-color);
+}
+
+body.touch{
+    height: initial !important;
+}
+
+body::after{
+    content: "";
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    pointer-events: none;
+    z-index: 50;
+    background: url(/assets/noise.png);
+}
+
+.page--root{
+    will-change: transform;
+    position: fixed;
+    width: 100%;
+}
+
+body.touch .page--root{
+    transform: initial !important;
+    position: initial !important;
+}
+
+.about--wrapper{
+    box-sizing: border-box;
+    padding: 2em 40vw 2em 10vw;
+    font-size: 2em;
+}
+
+.about--wrapper .header{
+    font-weight: 600;
+    -webkit-text-stroke: var(--stroke-size) var(--text-color);
+}
+
+.about--wrapper .to{
+    text-decoration: underline;
+    text-decoration-thickness: .05em;
+}
+
+.about--wrapper p{
+    margin: 1em 0;
+}
+
+.about--wrapper .social{
+    font-size: .65em;
+    margin: .5em 0;
+    -webkit-text-stroke: var(--stroke-size) var(--text-color);
+}
+
+.about--wrapper a{
+    font-weight: 600;
+}
+
+.about--wrapper svg{
+    margin-right: .5em;
+}
+
+.projects--wrapper{
+    width: 90%;
+    margin: 2em auto;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: .5em;
+}
+
+.project--parent{
+    position: relative;
+    padding-top: 60%;
+    border-radius: .5em;
+    cursor: pointer;
+    transition: transform var(--cell-transition-time) var(--cell-transition-effect);
+    will-change: transform;
+}
+
+.project--parent.project--open{
+    pointer-events: none;
+}
+
+.project--title{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    font-size: 3vw;
+    -webkit-text-stroke: var(--stroke-size) var(--text-color);
+    color: transparent;
+    z-index: 1;
+    box-sizing: border-box;
+    padding: .5em;
+    transition: var(--standard-transition-time) var(--standard-transition-effect);
+    transition-property: color, text-shadow, opacity;
+    font-weight: 600;
+}
+
+.project--title.title--white{
+    --text-color: #ccc;
+    --background-color: black;
+}
+
+.project--cell, 
+.project--image{
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    border-radius: .5em;
+    overflow: hidden;
+    will-change: transform;
+}
+
+.project--cell{
+    transition: var(--cell-transition-time) var(--cell-transition-effect);
+    transition-property: transform, box-shadow;
+}
+
+.project--image{
+    background-size: cover;
+    background-position: center center;
+    opacity: 0.1;
+    transition: opacity var(--standard-transition-time) var(--standard-transition-effect);
+}
+
+.project--parent.project--open .project--title{
+    opacity: 0;
+}
+
+.project--parent:hover .project--title{
+    color: var(--text-color);
+    text-shadow: 0 0 .5em var(--background-color);
+}
+
+.project--parent:hover .project--image, 
+.project--parent.project--open .project--image{
+    opacity: 1;
+}
+
+.project--parent.project--open .project--cell{
+    box-shadow: 0 0 1em var(--shadow-low-color);
+}
+
+.projects--wrapper.project--is--open .project--parent:not(.project--open){
+    transform: scale(0.85);
+}
+
+.project--details{
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    height: 100vh;
+    background: var(--background-color);
+    z-index: 2;
+    opacity: 0;
+    transition: opacity var(--cell-transition-time) var(--cell-transition-effect);
+}
+
+.project--details.show{
+    opacity: 1;
+}
+
+.project--details .details--content{
+    position: absolute;
+    top: 45%;
+    transform: translate(0, -50%);
+    width: 45%;
+    max-width: 30em;
+    box-sizing: border-box;
+    padding: 0 7.5vw 0 5vw;
+}
+
+.details--content svg{
+    margin-right: .3em;
+}
+
+.details--content .details--close{
+    font-size: 1.2em;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+    cursor: pointer;
+    margin-top: 1.5em;
+    font-weight: 600;
+}
+
+.details--content .details--count{
+    font-size: 1.2em;
+}
+
+.details--content .details--title{
+    font-size: 3em;
+    font-weight: 600;
+    margin-bottom: .75em;
+    line-height: 1em;
+    -webkit-text-stroke: var(--stroke-size) var(--text-color);
+}
+
+.details--content .details--dev,
+.no-js{
+    color: #571111;
+    font-weight: 600;
+    margin-bottom: .5em;
+}
+
+.details--content .details--description{
+    margin-bottom: 1em;
+    font-size: 1.2em;
+}
+
+.details--content .details--link{
+    font-weight: 600;
+    margin-top: 1em;
+    font-size: 1.2em;
+}
+
+.languages--wrapper{
+    padding: 5em 0;
+    text-align: justify;
+    text-align-last: justify;
+}
+
+.languages--wrapper p{
+    font-size: 3em;
+    font-weight: 600;
+    text-align-last: center;
+}
+
+.languages--wrapper span{
+    font-size: 5em;
+    font-weight: 600;
+    position: relative;
+    margin: 0 .25em;
+}
+
+.languages--wrapper span::before,
+.languages--wrapper span::after{
+    content: attr(data-lang);
+    -webkit-text-stroke: var(--stroke-size) var(--text-color);
+}
+
+.languages--wrapper span::before{
+    color: var(--text-color);
+    -webkit-mask-image: url(/assets/water-wave.png);
+    mask-image: url(/assets/water-wave.png);
+    -webkit-mask-repeat: repeat no-repeat;
+    mask-repeat: repeat no-repeat;
+    animation: water 1.5s infinite linear;
+}
+
+.languages--wrapper span::after{
+    color: transparent;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.g{
+    --text-color: #00e676;
+}
+
+.m{
+    --text-color: #7db53d;
+}
+
+.b{
+    --text-color: #ff9100;
+    
+}
+
+.g::before{
+    -webkit-mask-size: 150px 100%;
+    mask-size: 150px 100%;
+}
+
+.m::before{
+    -webkit-mask-size: 150px 70%;
+    mask-size: 150px 70%;
+}
+
+.b::before{
+    -webkit-mask-size: 150px 50%;
+    mask-size: 150px 50%;
+}
+
+@keyframes water{
+    from{
+        -webkit-mask-position: 0 bottom;
+        mask-position: 0 bottom;
+    }
+
+    to{
+        -webkit-mask-position: 150px bottom;
+        mask-position: 150px bottom;
+    }
+}
+
+.loading--cover{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    background-color: var(--background-color);
+    opacity: 0;
+    transition: opacity var(--standard-transition-time) var(--standard-transition-effect);
+    z-index: 100;
+}
+
+.loading--cover.show{
+    opacity: 1;
+}
+
+.loading--cover>div{
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    transition: opacity var(--standard-transition-time) var(--standard-transition-effect);
+}
+
+.loading--cover>div.show{
+    opacity: 1;
+}
+
+.loading--cover>div>div{
+    position: absolute;
+    top: 33px;
+    width: 13px;
+    height: 13px;
+    border-radius: 50%;
+    background: var(--text-color);
+    animation: loading1 .6s infinite var(--standard-transition-effect);
+}
+
+.loading--cover>div>div:nth-child(1){
+    left: 8px;
+}
+
+.loading--cover>div>div:nth-child(2){
+    left: 8px;
+    animation-name: loading2;
+}
+
+.loading--cover>div>div:nth-child(3){
+    left: 32px;
+    animation-name: loading2;
+}
+
+.loading--cover>div>div:nth-child(4){
+    left: 56px;
+    animation-name: loading3;
+}
+
+.error--page .page--background{
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    z-index: -1;
+    mask-image: radial-gradient(black 20%, transparent);
+    mask-size: 100%;
+    -webkit-mask-image: radial-gradient(black 20%, transparent);
+    -webkit-mask-size: 100%;
+}
+
+.error--page .page--background span{
+    font-size: 70vw;
+    line-height: 50vh;
+    -webkit-text-stroke: var(--stroke-size) rgba(255, 255, 255, .5);
+    color: transparent;
+    display: block;
+    animation: marquee 6s linear infinite;
+}
+
+@keyframes marquee{
+    from{
+        transform: translate3d(0, 0, 0);
+    }
+    to{
+        transform: translate3d(0, -50vh, 0);
+    }
+}
+
+.error--page .error--content{
+    position: absolute;
+    top: 50%;
+    left: 0;
+    right: 0;
+    transform: translate(0, -50%);
+    text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
+    box-sizing: border-box;
+    padding: 2em;
+}
+
+.error--content h1{
+    font-size: 3em;
+    -webkit-background-clip: text;
+    backround-clip: text;
+    background-image: var(--error-gradient);
+    color: transparent;
+    -webkit-text-stroke: var(--stroke-size) transparent;
+}
+
+.error--content p{
+    margin: 1em 0;
+}
+
+.error--content a{
+    background: var(--error-gradient);
+    color: var(--background-color);
+    padding: .5em;
+    display: inline-block;
+    border-radius: .3em;
+    font-size: .8em;
+    transition: box-shadow var(--standard-transition-time) var(--standard-transition-effect);
+}
+
+.error--content a:hover{
+    box-shadow: 0 0 1em rgba(0, 0, 0, .3);
+}
+
+@keyframes loading1{
+    from{
+        transform: scale(0);
+    }
+    to{
+        transform: scale(1);
+    }
+}
+
+@keyframes loading2{
+    from{
+        transform: translate(0, 0);
+    }
+    to{
+        transform: translate(24px, 0);
+    }
+}
+
+@keyframes loading3{
+    from{
+        transform: scale(1);
+    }
+    to{
+        transform: scale(0);
+    }
+}
+
+@media only screen and (max-width: 800px){
+    html{
+        --mobile-version: true;
+    }
+
+    .about--wrapper{
+        font-size: 1.5em;
+        padding: 2em 10vw;
+    }
+
+    .projects--wrapper{
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .project--parent{
+        grid-area: initial !important;
+    }
+
+    .project--title{
+        font-size: 6vw;
+    }
+
+    .languages--wrapper p{
+        font-size: 2em;
+        margin-bottom: .5em;
+    }
+
+    .languages--wrapper span{
+        font-size: 2.4em;
+    }
+
+    .project--details .details--content{
+        width: 100%;
+        bottom: 0;
+        top: initial;
+        transform: translate(0, 0);
+        padding-bottom: 5vh;
+    }
+}
