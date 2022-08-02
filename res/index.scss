@@ -511,6 +511,11 @@ body.touch .page--root{
         font-size: 1.5em;
         padding: 2em 10vw;
     }
+    
+    .about--wrapper .social{
+        font-size: .85em;
+        margin: 0.75em 0;
+    }
 
     .projects--wrapper{
         grid-template-columns: repeat(2, 1fr);
