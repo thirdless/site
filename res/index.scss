@@ -78,8 +78,8 @@ body.touch .page--root{
 
 .about--wrapper{
     box-sizing: border-box;
-    width: 50vw;
-    font-size: 1.6vw;
+    width: 28em;
+    font-size: max(1.6vw, 1.8em);
     padding: 2em 0 2em 10%;
 }
 
