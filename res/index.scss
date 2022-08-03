@@ -65,17 +65,22 @@ body::after{
     will-change: transform;
     position: fixed;
     width: 100%;
+    max-width: 250vh;
+    left: 50%;
+    transform: translate3d(-50%, 0px, 0px);
 }
 
 body.touch .page--root{
     transform: initial !important;
     position: initial !important;
+    margin: 0 auto;
 }
 
 .about--wrapper{
     box-sizing: border-box;
-    padding: 2em 40vw 2em 10vw;
-    font-size: 2em;
+    width: 50vw;
+    font-size: 1.6vw;
+    padding: 2em 0 2em 10%;
 }
 
 .about--wrapper .header{
@@ -132,7 +137,7 @@ body.touch .page--root{
     bottom: 0;
     left: 0;
     right: 0;
-    font-size: 3vw;
+    font-size: min(3vw, 10vh);
     -webkit-text-stroke: var(--stroke-size) var(--text-color);
     color: transparent;
     z-index: 1;
@@ -197,8 +202,8 @@ body.touch .page--root{
 .project--details{
     position: fixed;
     top: 0;
-    right: 0;
     left: 0;
+    width: 100vw;
     height: 100vh;
     background: var(--background-color);
     z-index: 2;
@@ -215,9 +220,10 @@ body.touch .page--root{
     top: 45%;
     transform: translate(0, -50%);
     width: 45%;
-    max-width: 30em;
+    max-width: 25vw;
     box-sizing: border-box;
     padding: 0 7.5vw 0 5vw;
+    font-size: min(.85vw, 4vh);
 }
 
 .details--content svg{
@@ -270,13 +276,13 @@ body.touch .page--root{
 }
 
 .languages--wrapper p{
-    font-size: 3em;
+    font-size: 2.5vw;
     font-weight: 600;
     text-align-last: center;
 }
 
 .languages--wrapper span{
-    font-size: 5em;
+    font-size: 4vw;
     font-weight: 600;
     position: relative;
     margin: 0 .25em;
@@ -502,7 +508,7 @@ body.touch .page--root{
     }
 }
 
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 900px){
     html{
         --mobile-version: true;
     }
@@ -510,6 +516,7 @@ body.touch .page--root{
     .about--wrapper{
         font-size: 1.5em;
         padding: 2em 10vw;
+        width: 100%;
     }
     
     .about--wrapper .social{
@@ -539,10 +546,12 @@ body.touch .page--root{
     }
 
     .project--details .details--content{
+        max-width: 100%;
         width: 100%;
         bottom: 5vh;
         top: initial;
         transform: translate(0, 0);
         padding-bottom: 5vh;
+        font-size: 1em;
     }
 }
