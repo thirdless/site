@@ -5,8 +5,7 @@
         {% include meta.html %}
     </head>
     <body>
-        {% assign indentation = "" %}{% for i in (1..2) %}{% assign indentation = indentation | append: "    " %}{% endfor %}{% assign indentation = indentation | append: "\n" -%}
-        {{ content | replace: "\n", indentation }}
+        {{ content }}
         <script src="/res/index.js"></script>
     </body>
 </html>
