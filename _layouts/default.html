@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>{% if page.title %}{{ page.title }}{% else %}{{ site.title }}{% endif %}</title>
+        {% include meta.html %}
+    </head>
+    <body>
+        {{ content }}
+        <script src="/res/index.js"></script>
+    </body>
+</html>
