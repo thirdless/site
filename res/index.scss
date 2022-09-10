@@ -125,7 +125,7 @@ body.touch .page--root{
     border-radius: .5em;
     cursor: pointer;
     transition: var(--cell-transition-time) var(--cell-transition-effect);
-    transition-property: transform, opacity, visiblity;
+    transition-property: transform, opacity, visibility;
     will-change: transform;
     z-index: 1;
 }
@@ -200,7 +200,7 @@ body.touch .page--root{
 .projects--wrapper.project--is--open .project--parent:not(.project--open){
     transform: scale(0.85);
     opacity: 0;
-    visiblity: hidden;
+    visibility: hidden;
 }
 
 .project--details{
