@@ -126,6 +126,7 @@ body.touch .page--root{
     cursor: pointer;
     transition: transform var(--cell-transition-time) var(--cell-transition-effect);
     will-change: transform;
+    z-index: 1;
 }
 
 .project--parent.project--open{
