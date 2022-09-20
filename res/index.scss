@@ -98,8 +98,8 @@ body.touch .page--root{
 }
 
 .about--wrapper .social{
-    font-size: .65em;
-    margin: .5em 0;
+    font-size: .8em;
+    margin: .75em 0;
     -webkit-text-stroke: var(--stroke-size) var(--text-color);
 }
 
@@ -520,11 +520,6 @@ body.touch .page--root{
         font-size: 1.5em;
         padding: 2em 10vw;
         width: 100%;
-    }
-    
-    .about--wrapper .social{
-        font-size: .85em;
-        margin: 0.75em 0;
     }
 
     .projects--wrapper{
