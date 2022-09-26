@@ -66,8 +66,7 @@ body::after{
     position: fixed;
     width: 100%;
     max-width: 250vh;
-    left: 50%;
-    transform: translate3d(-50%, 0px, 0px);
+    transform: translate3d(0, 0, 0);
 }
 
 body.touch .page--root{
