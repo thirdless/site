@@ -115,7 +115,7 @@ body.touch .page--root{
     margin: 2em auto;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: .5em;
+    gap: 1em;
 }
 
 .project--parent{
@@ -523,6 +523,7 @@ body.touch .page--root{
 
     .projects--wrapper{
         grid-template-columns: repeat(2, 1fr);
+        gap: .5em;
     }
 
     .project--parent{
